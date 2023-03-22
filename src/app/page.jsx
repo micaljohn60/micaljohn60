@@ -37,7 +37,7 @@ export default function Home() {
             </h1>
             <ul className="flex items-center">
               <li><BsFillMoonStarsFill onClick={(e) => setDarkMode(!darkMode)} className='cursor-pointer text-2xl mx-10 dark:text-gray-200' /></li>
-              <li><a target="_blank" href="https://www.canva.com/design/DAFdzBudAdU/r85CO4--ulDLzfz6gaMbJw/view?utm_content=DAFdzBudAdU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" className="bg-cyan-500 text-white px-4 py-2 border-none rounded-md ml-2">Resume</a></li>
+              <li><a rel="noopener noreferrer" target="_blank" href="https://www.canva.com/design/DAFdzBudAdU/r85CO4--ulDLzfz6gaMbJw/view?utm_content=DAFdzBudAdU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" className="bg-cyan-500 text-white px-4 py-2 border-none rounded-md ml-2">Resume</a></li>
             </ul>
           </nav>
 
@@ -55,11 +55,11 @@ export default function Home() {
           </div>
 
           <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600">
-            <Link href={"https://github.com/micaljohn60"}>
+            <Link href={"https://github.com/micaljohn60"} target="_blank">
               <AiOutlineGithub className='dark:text-white'/>
             </Link>
 
-            <Link href="https://www.linkedin.com/in/mical-john-77b85218a/">
+            <Link href="https://www.linkedin.com/in/mical-john-77b85218a/" target="_blank">
               <AiFillLinkedin className='dark:text-white' />
             </Link>
 
