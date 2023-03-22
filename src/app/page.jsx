@@ -59,7 +59,7 @@ export default function Home() {
               <AiOutlineGithub className='dark:text-white'/>
             </Link>
 
-            <Link href="https://www.linkedin.com/in/mical-john-77b85218a/" target="_blank">
+            <Link href="https://www.linkedin.com/in/thihan-hein-77b85218a/" target="_blank">
               <AiFillLinkedin className='dark:text-white' />
             </Link>
 
