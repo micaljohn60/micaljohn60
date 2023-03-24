@@ -6,13 +6,8 @@ import { BsFillMoonStarsFill } from 'react-icons/bs'
 
 import { AiFillTwitterCircle, AiFillLinkedin, AiFillYoutube, AiOutlineGithub } from 'react-icons/ai'
 import han from "../../public/dev-ed-wave.png"
-import design from "../../public/design.png"
-import code from "../../public/code.png"
-import consulting from "../../public/consulting.png"
-import web1 from "../../public/web1.png"
-import web2 from "../../public/web2.png"
-import web3 from "../../public/web3.png"
-import web4 from "../../public/web4.png"
+import harry from "../../public/harry_anime.png"
+import realHarry from "../../public/real_harry.png"
 // import web5 from "../../public/web5.png"
 // import web6 from "../../public/web6.png"
 import { useState } from 'react'
@@ -25,6 +20,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
 
   const [darkMode, setDarkMode] = useState(true);
+  const [isRealMe, setIsRealMe] = useState(true);
 
   return (
     <div className={darkMode ? 'dark' : ''}>
@@ -49,14 +45,14 @@ export default function Home() {
               Full Stack Software Engineer
             </h3>
             <p className="text-md py-5 leading-8 text-gray-800 dark:text-white md:text-xl max-w-lg mx-auto">
-            Innovative Software Engineer striving to make the world a more unified and connected place. 
-            A creative thinker, adept in software development and working with passions.
+              Innovative Software Engineer striving to make the world a more unified and connected place.
+              A creative thinker, adept in software development and working with passions.
             </p>
           </div>
 
           <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600">
             <Link href={"https://github.com/micaljohn60"} target="_blank">
-              <AiOutlineGithub className='dark:text-white'/>
+              <AiOutlineGithub className='dark:text-white' />
             </Link>
 
             <Link href="https://www.linkedin.com/in/thihan-hein-77b85218a/" target="_blank">
@@ -65,8 +61,18 @@ export default function Home() {
 
           </div>
 
-          <div className="relative mx-auto bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 mt-20 overflow-hidden">
-            <Image src={han} layout="fill" objectFit='cover' />
+          <div className="flex justify-center items-center my-6">
+            <span class="mr-3 text-sm font-medium text-gray-900 dark:text-gray-300">Anime Me</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" class="sr-only peer" checked={isRealMe} onClick={(e) => setIsRealMe(!isRealMe)}/>
+              <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-600"></div>
+
+            </label>
+            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Real Me</span>
+          </div>
+
+          <div className="relative mx-auto bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 mt-10 overflow-hidden">
+            <Image src={isRealMe ? realHarry : harry} layout="fill" objectFit='cover' />
           </div>
 
         </section>
