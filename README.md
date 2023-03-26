@@ -7,6 +7,6 @@
 
 Hey there 👋
 
-I’m Braydon, a senior full-stack engineer, innovative software engineer striving to make the world a more unified and connected place. A creative thinker, adept in software development and working with passions.
+I’m Thiahn Hein, a junior full-stack engineer, innovative software engineer striving to make the world a more unified and connected place. A creative thinker, adept in software development and working with passions.
 
 Want to know more about me? [Check out my portfolio.](https://micaljohn60.vercel.app/)
