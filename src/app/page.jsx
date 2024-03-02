@@ -7,7 +7,7 @@ import { BsFillMoonStarsFill } from 'react-icons/bs'
 import { AiFillTwitterCircle, AiFillLinkedin, AiFillYoutube, AiOutlineGithub } from 'react-icons/ai'
 import han from "../../public/dev-ed-wave.png"
 import harry from "../../public/harry_anime.png"
-import realHarry from "../../public/real_harry.png"
+import realHarry from "../../public/real_harry_2.png"
 // import web5 from "../../public/web5.png"
 // import web6 from "../../public/web6.png"
 import { useState } from 'react'
@@ -31,10 +31,10 @@ export default function Home() {
             <h1 className='text-xl font-burtons dark:text-gray-300'>
               My Portofilio
             </h1>
-            <ul className="flex items-center">
+            {/* <ul className="flex items-center">
               <li><BsFillMoonStarsFill onClick={(e) => setDarkMode(!darkMode)} className='cursor-pointer text-2xl mx-10 dark:text-gray-200' /></li>
               <li><a rel="noopener noreferrer" target="_blank" href="https://www.canva.com/design/DAFdzBudAdU/r85CO4--ulDLzfz6gaMbJw/view?utm_content=DAFdzBudAdU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" className="bg-cyan-500 text-white px-4 py-2 border-none rounded-md ml-2">Resume</a></li>
-            </ul>
+            </ul> */}
           </nav>
 
           <div className="text-center p-10">
