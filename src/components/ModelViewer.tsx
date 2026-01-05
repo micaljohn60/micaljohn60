@@ -1,7 +1,6 @@
 import React, { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, useHelper } from "@react-three/drei";
-import { DirectionalLightHelper, PointLightHelper } from "three";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 /* =========================
