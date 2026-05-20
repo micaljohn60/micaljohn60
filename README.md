@@ -16,7 +16,7 @@
 
 ## 👋 About Me
 
-I'm a Full Stack Developer with **2+ years** building production web and mobile applications. Currently based in Sydney after completing my **Master of Computer Science at the University of Sydney**.
+I'm a Full Stack Developer with **4+ years** building production web and mobile applications. Currently based in Sydney after completing my **Master of Computer Science at the University of Sydney**.
 
 - 🚀 I build with **React, Node.js, TypeScript, Java, PostgreSQL, and AWS**
 - 📱 Experienced in both **web and mobile** (React Native) development
