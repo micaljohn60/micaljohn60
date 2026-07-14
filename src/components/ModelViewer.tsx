@@ -1,12 +1,20 @@
 import React, { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 /* =========================
    Model
 ========================= */
-const Model: React.FC<{ modelPath: string }> = ({ modelPath }) => {
+const SpeakerNotes = ({ position, delay = 0 }: { position: [number, number, number]; delay?: number }) => (
+  <Html position={position} center distanceFactor={8} style={{ pointerEvents: "none" }}>
+    <div className="speaker-note-cluster" style={{ "--note-delay": `${delay}s` } as React.CSSProperties} aria-hidden="true">
+      <i>♪</i><i>♫</i><i>♩</i>
+    </div>
+  </Html>
+);
+
+const Model: React.FC<{ modelPath: string; isMusicPlaying: boolean }> = ({ modelPath, isMusicPlaying }) => {
   const { scene } = useGLTF(modelPath);
 
   scene.traverse((obj) => {
@@ -16,7 +24,15 @@ const Model: React.FC<{ modelPath: string }> = ({ modelPath }) => {
     }
   });
 
-  return <primitive object={scene} scale={4} position={[3, -12, -4]} />;
+  return (
+    <group scale={3.3} position={[2.5, -10.5, -4]}>
+      <primitive object={scene} />
+      {isMusicPlaying && <>
+        <SpeakerNotes position={[0.68, 2.48, -1.78]} />
+        <SpeakerNotes position={[-2.4, 2.48, -1.72]} delay={0.45} />
+      </>}
+    </group>
+  );
 };
 
 /* =========================
@@ -89,11 +105,11 @@ const AccentPointLight = () => {
 /* =========================
    Viewer
 ========================= */
-const ModelViewer: React.FC<{ modelPath: string }> = ({ modelPath }) => {
+const ModelViewer: React.FC<{ modelPath: string; isMusicPlaying: boolean }> = ({ modelPath, isMusicPlaying }) => {
   return (
     <Canvas
       shadows="soft"
-      style={{  background: "linear-gradient(to right, #1e3a5f, #4a90c4, #8ec5ff)", }}
+      style={{ background: "radial-gradient(circle at 68% 24%, #79cde7, #274f78 42%, #09172e 78%)" }}
       camera={{ position: [2, 2, 6], fov: 45 }}
       gl={{
         toneMapping: THREE.ACESFilmicToneMapping,
@@ -102,7 +118,7 @@ const ModelViewer: React.FC<{ modelPath: string }> = ({ modelPath }) => {
       }}
     >
       {/* Base light */}
-      <ambientLight intensity={0} />
+      <ambientLight intensity={0.15} />
 
       {/* Lighting setup */}
       <KeyLight />
@@ -115,7 +131,7 @@ const ModelViewer: React.FC<{ modelPath: string }> = ({ modelPath }) => {
 
       {/* Model */}
       <Suspense fallback={null}>
-        <Model modelPath={modelPath} />
+        <Model modelPath={modelPath} isMusicPlaying={isMusicPlaying} />
       </Suspense>
 
       {/* Controls */}
@@ -136,4 +152,4 @@ const ModelViewer: React.FC<{ modelPath: string }> = ({ modelPath }) => {
 
 export default ModelViewer;
 
-useGLTF.preload("/model.glb");
+useGLTF.preload("/models/my_room_2.glb");

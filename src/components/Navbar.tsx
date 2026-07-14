@@ -1,97 +1,41 @@
-import React, { useRef, useState, useEffect } from "react";
-import { gsap } from "gsap";
+import { useEffect, useState } from "react";
 
-const Navbar: React.FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+interface NavbarProps { isMusicPlaying: boolean; onToggleMusic: () => void; }
 
-  // Animate menu on open/close
-  useEffect(() => {
-    if (menuRef.current) {
-      if (menuOpen) {
-        gsap.to(menuRef.current, {
-          x: 0,
-          duration: 0.5,
-          ease: "power3.out",
-        });
-      } else {
-        gsap.to(menuRef.current, {
-          x: "100%",
-          duration: 0.5,
-          ease: "power3.in",
-        });
-      }
-    }
-  }, [menuOpen]);
+export default function Navbar({ isMusicPlaying, onToggleMusic }: NavbarProps) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => { document.body.style.overflow = open ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [open]);
 
+  const close = () => setOpen(false);
   return (
-    <header className="w-full border-b bg-white fixed top-0 left-0 z-50 ">
-      <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2 font-bold text-lg">
-          <div className="h-8 w-8 rounded-b-md px-10 py-5 bg-black text-white flex items-center justify-center">
-            THH
-          </div>
-        </div>
-
-        {/* Desktop Nav links */}
-        <nav className="hidden md:flex gap-8 text-sm font-medium">
-          <a
-            href="https://www.linkedin.com/in/thi-han-hein-77b85218a/"
-            className="hover:text-gray-600"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com/micaljohn60"
-            className="hover:text-gray-600"
-          >
-            GitHub
-          </a>
-        </nav>
-
-        <nav className="hidden md:flex gap-8 text-sm font-medium">
-          <a className="hover:text-gray-600">Sydney, Australia</a>
-        </nav>
-
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden flex flex-col justify-center items-center gap-1"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span
-            className={`block h-0.5 w-6 bg-black transition-transform duration-300 ${
-              menuOpen ? "rotate-45 translate-y-1.5" : ""
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-black transition-opacity duration-300 ${
-              menuOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-black transition-transform duration-300 ${
-              menuOpen ? "-rotate-45 -translate-y-1.5" : ""
-            }`}
-          />
+    <header className="nav-wrap">
+      <a className="brand" href="#top" aria-label="Thi Han Hein, home"><span>TH</span><strong>Thi Han Hein</strong></a>
+      <nav className="desktop-nav" aria-label="Main navigation">
+        <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+      </nav>
+      <div className="nav-actions">
+        <button className={`nav-music ${isMusicPlaying ? "playing" : ""}`} onClick={onToggleMusic} aria-label={isMusicPlaying ? "Mute background music" : "Play background music"} aria-pressed={isMusicPlaying}>
+          <span className="equalizer" aria-hidden="true"><i /><i /><i /><i /></span>
+          {isMusicPlaying ? "Mute" : "Sound"}
         </button>
+        <div className="availability"><i /> Available</div>
+        <div className="social-links">
+          <a href="https://github.com/thihanhein20" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+          <a href="https://linkedin.com/in/thihanhein/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+        </div>
       </div>
-
-      {/* Mobile Slide Menu */}
-      <div
-        ref={menuRef}
-        className="fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform translate-x-full md:hidden flex flex-col p-6 gap-6"
-      >
-        <a href="#" className="text-lg font-medium hover:text-gray-600">
-          LinkedIn
-        </a>
-        <a href="#" className="text-lg font-medium hover:text-gray-600">
-          GitHub
-        </a>
-        <span className="text-sm text-gray-500">Sydney, Australia</span>
+      <button className={`menu-button ${open ? "open" : ""}`} onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}><span /><span /></button>
+      <div className={`mobile-menu ${open ? "open" : ""}`}>
+        <nav><a onClick={close} href="#work">Work</a><a onClick={close} href="#about">About</a><a onClick={close} href="#contact">Contact</a></nav>
+        <div className="mobile-socials">
+          <a href="https://github.com/thihanhein20" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+          <a href="https://linkedin.com/in/thihanhein/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+        </div>
+        <button className={`mobile-music ${isMusicPlaying ? "playing" : ""}`} onClick={onToggleMusic}>
+          <span>{isMusicPlaying ? "Sound is playing" : "Play soundtrack"}</span><span>{isMusicPlaying ? "Pause ◼" : "Play ♪"}</span>
+        </button>
+        <p>Sydney, Australia · Available for work</p>
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}

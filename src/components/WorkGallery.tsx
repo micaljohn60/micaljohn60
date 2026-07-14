@@ -1,195 +1,73 @@
-import React, { useState, useEffect } from "react";
-import dashboardImg from "../assets/talent_and_jobs.jpg";
-import dashboardImg2 from "../assets/admin-dashboard.jpg";
-import mobileAppImg from "../assets/talent_and_jobs_figma.png";
-import landingPageImg from "../assets/landing_page.png";
+import dashboard from "../assets/optimized/admin-dashboard.webp";
+import jobs from "../assets/optimized/talent-and-jobs.webp";
+import mobile from "../assets/optimized/talent-and-jobs-figma.webp";
+import landing from "../assets/optimized/landing-page.webp";
+import breakupLanding from "../assets/optimized/breakup-buddy.webp";
+import breakupDashboard from "../assets/optimized/breakup-buddy-dashboard.webp";
+import breakupMood from "../assets/optimized/breakup-buddy-mood.webp";
+import sammyDashboard from "../assets/optimized/sammy-dashboard.webp";
+import sammyUpload from "../assets/optimized/sammy-upload.webp";
 
-interface WorkItem {
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-}
-
-const works: WorkItem[] = [
-  {
-    title: "Dashboard Design",
-    description:
-      "An admin dashboard for managing staff, tracking performance, and monitoring job categories in real time.",
-    image: dashboardImg2,
-    tags: ["UI Design", "Dashboard"],
-  },
-  {
-    title: "Talent & Jobs App",
-    description:
-      "A mobile job platform connecting employers and candidates with listings, daily blogs, and smart filters.",
-    image: dashboardImg,
-    tags: ["Mobile", "React Native"],
-  },
-  {
-    title: "Mobile App UI",
-    description:
-      "Figma prototype screens covering onboarding, job detail, profile, and notification flows.",
-    image: mobileAppImg,
-    tags: ["Figma", "Prototyping"],
-  },
-  {
-    title: "Landing Page",
-    description:
-      "A clean HR management landing page with feature highlights, responsibilities, and a contact section.",
-    image: landingPageImg,
-    tags: ["Web Design", "Landing Page"],
-  },
+const projects = [
+  { number: "03", title: "Operations, made visible.", type: "Admin dashboard", image: dashboard, tags: ["Product design", "Frontend"] },
+  { number: "04", title: "Better work, one tap away.", type: "Talent & Jobs", image: jobs, tags: ["React Native", "Mobile"] },
+  { number: "05", title: "A job search that flows.", type: "Mobile experience", image: mobile, tags: ["Figma", "UX / UI"] },
+  { number: "06", title: "HR without the headache.", type: "Web platform", image: landing, tags: ["Web design", "Development"] },
 ];
 
-type Direction = "left" | "right" | null;
-
-const WorkGallery: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const [direction, setDirection] = useState<Direction>(null);
-  const [displayed, setDisplayed] = useState(0);
-
-  const navigate = (dir: "left" | "right") => {
-    if (animating) return;
-
-    const next =
-      dir === "right"
-        ? (current + 1) % works.length
-        : (current - 1 + works.length) % works.length;
-
-    setDirection(dir);
-    setAnimating(true);
-    setCurrent(next);
-  };
-
-  useEffect(() => {
-    if (!animating) return;
-    const timeout = setTimeout(() => {
-      setDisplayed(current);
-      setAnimating(false);
-      setDirection(null);
-    }, 300);
-    return () => clearTimeout(timeout);
-  }, [animating, current]);
-
-  const slideOutClass =
-    direction === "right" ? "-translate-x-full opacity-0" : "translate-x-full opacity-0";
-  const slideInClass =
-    direction === "right" ? "translate-x-full" : "-translate-x-full";
-
-  const item = works[displayed];
-  const incoming = works[current];
-
+export default function WorkGallery() {
   return (
-    <div>
-      <h3 className="text-2xl font-semibold mb-8">Selected Work</h3>
-
-      <div className="relative flex items-center gap-4">
-        {/* Left Arrow */}
-        <button
-          onClick={() => navigate("left")}
-          disabled={animating}
-          className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center hover:bg-gray-50 hover:shadow-md transition-all disabled:opacity-40"
-          aria-label="Previous"
-        >
-          <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        {/* Card Wrapper */}
-        <div className="flex-1 relative overflow-hidden rounded-2xl" style={{ minHeight: "360px" }}>
-
-          {/* Outgoing card */}
-          <div
-            className={`absolute inset-0 transition-all duration-300 ease-in-out ${
-              animating ? slideOutClass : "translate-x-0 opacity-100"
-            }`}
-          >
-            <CardContent item={item} />
-          </div>
-
-          {/* Incoming card */}
-          {animating && (
-            <div
-              className={`absolute inset-0 transition-all duration-300 ease-in-out ${slideInClass} animate-slide-in`}
-              style={{
-                transform: slideInClass.includes("-translate-x") ? "translateX(-100%)" : "translateX(100%)",
-                animation: "slideIn 300ms ease-in-out forwards",
-              }}
-            >
-              <CardContent item={incoming} />
+    <div className="project-grid">
+      <article className="featured-project sammy-project reveal" tabIndex={0}>
+        <div className="featured-copy">
+          <div className="project-meta"><span>01</span><p>AI healthcare platform</p><span>↗</span></div>
+          <div>
+            <p className="featured-label">From PDF to patient record · In seconds</p>
+            <h3>Sammy<em>.AI</em></h3>
+            <p className="featured-description">A clinic-focused document platform that uses Gemini 2.5 Flash to scan PDFs, extract structured patient data, and securely organise records—reducing manual entry and processing time.</p>
+            <div className="featured-tags"><span>Next.js</span><span>TypeScript</span><span>Gemini</span><span>AWS S3</span><span>Redis</span><span>PostgreSQL</span></div>
+            <div className="project-actions">
+              <a href="https://sammy-ai-dev.vercel.app/" target="_blank" rel="noreferrer">Live product <span>↗</span></a>
+              <a href="https://github.com/thihanhein20/samantha-ai" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
             </div>
-          )}
-
-          <style>{`
-            @keyframes slideIn {
-              from {
-                transform: ${direction === "right" ? "translateX(100%)" : "translateX(-100%)"};
-              }
-              to {
-                transform: translateX(0);
-              }
-            }
-          `}</style>
+          </div>
         </div>
+        <div className="featured-visual sammy-visual" aria-label="Sammy.AI product screens">
+          <img className="sammy-screen sammy-screen-main" src={sammyDashboard} alt="Sammy.AI clinic overview dashboard" />
+          <img className="sammy-screen sammy-screen-detail" src={sammyUpload} alt="Sammy.AI PDF upload and extraction interface" />
+          <div className="visual-caption"><span>01 / 02</span><span>Intelligent clinical records</span></div>
+        </div>
+      </article>
 
-        {/* Right Arrow */}
-        <button
-          onClick={() => navigate("right")}
-          disabled={animating}
-          className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center hover:bg-gray-50 hover:shadow-md transition-all disabled:opacity-40"
-          aria-label="Next"
-        >
-          <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
+      <article className="featured-project reveal" tabIndex={0}>
+        <div className="featured-copy">
+          <div className="project-meta"><span>02</span><p>Hackathon project</p><span>↗</span></div>
+          <div>
+            <p className="featured-label">Anonymous by design · Built for teens</p>
+            <h3>BreakUp<br /><em>Buddy.</em></h3>
+            <p className="featured-description">A private recovery companion for teens navigating heartbreak—with mood tracking, guided journaling, a judgment-free AI companion, and a seven-day healing program. No account required.</p>
+            <div className="featured-tags"><span>Mental wellness</span><span>AI companion</span><span>Product design</span></div>
+            <div className="project-actions">
+              <a href="https://breakupbuddy.vercel.app/" target="_blank" rel="noreferrer">Live product <span>↗</span></a>
+              <a href="https://github.com/thihanhein20/breakup-buddy" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+            </div>
+          </div>
+        </div>
+        <div className="featured-visual" aria-label="BreakUp Buddy product screens">
+          <img className="screen screen-main" src={breakupDashboard} alt="BreakUp Buddy recovery dashboard" />
+          <img className="screen screen-back" src={breakupLanding} alt="BreakUp Buddy anonymous landing page" />
+          <img className="screen screen-front" src={breakupMood} alt="BreakUp Buddy mood tracker" />
+          <div className="visual-caption"><span>01 / 03</span><span>Recovery, without judgment</span></div>
+        </div>
+      </article>
 
-      {/* Dot indicators */}
-      <div className="flex justify-center gap-2 mt-5">
-        {works.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              if (i === current || animating) return;
-              navigate(i > current ? "right" : "left");
-              setCurrent(i);
-            }}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === displayed ? "w-6 bg-teal-500" : "w-1.5 bg-gray-300"
-            }`}
-          />
-        ))}
-      </div>
+      {projects.map((project) => (
+        <article className="project-card reveal" key={project.title} tabIndex={0}>
+          <div className="project-meta"><span>{project.number}</span><p>{project.type}</p><span>↗</span></div>
+          <div className="project-image"><img src={project.image} alt={`${project.type} interface`} loading="lazy" /><div className="project-shine" /></div>
+          <div className="project-info"><h3>{project.title}</h3><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div>
+        </article>
+      ))}
     </div>
   );
-};
-
-const CardContent: React.FC<{ item: WorkItem }> = ({ item }) => (
-  <div className="rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm h-full">
-    <img
-      src={item.image}
-      alt={item.title}
-      className="w-full h-56 object-cover"
-    />
-    <div className="p-5 flex flex-col gap-2">
-      <div className="flex gap-2 flex-wrap">
-        {item.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-600 border border-teal-100"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      <h4 className="text-base font-semibold text-gray-900">{item.title}</h4>
-      <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
-    </div>
-  </div>
-);
-
-export default WorkGallery;
+}
